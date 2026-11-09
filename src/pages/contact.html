@@ -1,0 +1,55 @@
+<!--- {"title":"Contact | Book a Consultation | Alli Pfaff, RP, MTA","description":"Reach out for a free initial consultation with Alli Pfaff, RP, MTA — Registered Psychotherapist and Music Psychotherapist in Peterborough, Ontario."} --->
+    <section class="page-intro">
+      <div class="container contact-grid">
+        <div class="reveal">
+          <span class="eyebrow">Contact</span>
+          <h1>Let's connect.</h1>
+          <p class="lead">Choosing a therapist is a personal decision. Finding someone who feels like the right fit matters.</p>
+          <p>Whether you are looking for support for yourself, your child, your teen, or your family, I welcome you to reach out. A consultation is an opportunity to share what brings you here, ask questions, and determine whether my approach may be a good fit for your needs.</p>
+
+          <h2 style="font-size:1.7rem;margin-top:2rem">Start with a consultation</h2>
+          <p>I offer a free initial consultation to discuss:</p>
+          <ul class="checklist checklist--single">
+            <li>What you are looking for support with</li>
+            <li>Your goals for therapy</li>
+            <li>Whether my approach aligns with your needs</li>
+            <li>Questions about fees or the therapy process</li>
+          </ul>
+          <p style="margin-top:1.4em">You do not need to know exactly what kind of therapy you need before reaching out. We can explore that together.</p>
+
+          <div class="contact-card">
+            <p><strong>Alli Pfaff, RP, MTA</strong><br>Registered Psychotherapist | Music Psychotherapist</p>
+            <dl>
+              <dt>Location</dt><dd>Peterborough, Ontario</dd>
+              <dt>Sessions</dt><dd>In-person &amp; Virtual</dd>
+              <!-- TODO: add email (and phone, if Alli decides to list one) -->
+            </dl>
+          </div>
+        </div>
+
+        <!-- TODO: set the form "action" once a form backend is chosen -->
+        <form class="form reveal" data-contact-form method="post" novalidate>
+          <h2>Send a message</h2>
+          <p class="form__note">Reaching out for therapy can feel like a big step. You don't need to have all the answers before contacting me.</p>
+          <div class="field"><label for="f-name">Name</label><input id="f-name" name="name" type="text" autocomplete="name" required></div>
+          <div class="field"><label for="f-email">Email</label><input id="f-email" name="email" type="email" autocomplete="email" required></div>
+          <div class="field"><label for="f-phone">Phone (optional)</label><input id="f-phone" name="phone" type="tel" autocomplete="tel"></div>
+          <div class="field">
+            <fieldset>
+              <legend>Who are you seeking support for?</legend>
+              <div class="options">
+                <label><input type="radio" name="for" value="Myself" required> Myself</label>
+                <label><input type="radio" name="for" value="My child"> My child</label>
+                <label><input type="radio" name="for" value="My teen"> My teen</label>
+                <label><input type="radio" name="for" value="Parent/caregiver support"> Parent/caregiver support</label>
+              </div>
+            </fieldset>
+          </div>
+          <div class="field"><label for="f-message">What brings you here?</label><textarea id="f-message" name="message" rows="4" placeholder="A few words is plenty."></textarea></div>
+          <div class="hp" aria-hidden="true"><label for="f-website">Website</label><input id="f-website" name="website" type="text" tabindex="-1" autocomplete="off"></div>
+          <button class="btn" type="submit">Send message</button>
+          <p class="form__note" style="margin-top:1.4rem"><strong>A note about response times.</strong> I will respond to your inquiry as soon as possible, typically within 2 business days. Please note that email is not monitored continuously and should not be used for urgent mental health concerns.</p>
+          <p class="form__status" role="status" hidden></p>
+        </form>
+      </div>
+    </section>

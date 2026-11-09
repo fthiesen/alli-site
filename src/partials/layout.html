@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en-CA">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{title}}</title>
+  <meta name="description" content="{{description}}">
+  <meta property="og:title" content="{{title}}">
+  <meta property="og:description" content="{{description}}">
+  <meta property="og:type" content="website">
+  <link rel="icon" type="image/svg+xml" href="assets/img/logo-mark.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..500&family=Jost:wght@400;500;600&display=swap">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <script>document.documentElement.classList.add('js')</script>
+  <script src="assets/js/main.js" defer></script>
+</head>
+<body class="{{bodyClass}}">
+  <a class="skip-link" href="#main">Skip to content</a>
+{{> header}}
+  <main id="main">
+{{> body}}
+  </main>
+{{> footer}}
+</body>
+</html>
