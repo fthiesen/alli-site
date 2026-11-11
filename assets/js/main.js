@@ -51,7 +51,7 @@
         if (!ctx) ctx = new AC();
         if (!loading) {
           loading = Promise.all(Object.entries(SAMPLES).map(([midi, name]) =>
-            fetch(`assets/audio/${name}.mp3`)
+            fetch(`/assets/audio/${name}.mp3`)
               .then((r) => r.arrayBuffer())
               .then((data) => new Promise((ok, fail) => ctx.decodeAudioData(data, ok, fail)))
               .then((buf) => { buffers[midi] = buf; })

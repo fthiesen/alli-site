@@ -2,19 +2,23 @@
 
 Website for Alli Pfaff, RP, MTA — Registered Psychotherapist | Music Psychotherapist (Peterborough, ON).
 
-Plain static HTML/CSS/JS — no build step. Open `index.html` with Live Server (or any static server) to preview.
+Plain static HTML/CSS/JS — no build step, no Node.
 
-To publish, upload everything except `content/` and `README.md` to the host's `public_html`.
+To publish, upload everything except `content/` and `README.md` to the host's `public_html` (keep the folder structure).
 
 ## Structure
 
+Clean URLs: each page is a folder with an `index.html` (`/about/`, `/who-i-help/children/`). Links and asset paths are root-relative (`/assets/...`), so preview with Live Server from this folder (or any static server), not by opening files directly.
+
 ```
-*.html                 one file per page (header and footer are repeated in each page)
-assets/css/style.css   all styles
-assets/js/main.js      piano hero (sound, glissando), menu, reveal, filters, form notice
-assets/img/            logo SVGs + photos/ (WebP crops; "-full" = uncropped, used in the About gallery)
-assets/audio/          piano samples for the home hero
-content/               copy brief, original photos, font/menu option pages (not published)
+index.html                     home (piano hero)
+about/  contact/  fees/  my-approach/  resources/
+who-i-help/                    + children/  teens/  adults/  parents/
+assets/css/style.css           all styles
+assets/js/main.js              piano hero (sound, glissando), menu, reveal, filters, form notice
+assets/img/                    logo SVGs + photos/ (WebP crops; "-full" = uncropped, used in the About gallery)
+assets/audio/                  piano samples for the home hero
+content/                       copy brief and original photos (not published)
 ```
 
 Notes:
