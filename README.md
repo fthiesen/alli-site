@@ -2,34 +2,31 @@
 
 Website for Alli Pfaff, RP, MTA — Registered Psychotherapist | Music Psychotherapist (Peterborough, ON).
 
-Static HTML/CSS/JS, no framework. A small Node script assembles the pages and generates responsive WebP photos.
+Plain static HTML/CSS/JS — no build step. Open `index.html` with Live Server (or any static server) to preview.
 
-## Commands
-
-```bash
-npm install        # once (installs sharp, used for images)
-npm run build      # builds into dist/
-npm run preview    # builds and serves dist/ locally
-```
-
-To publish, upload the **contents** of `dist/` to the host's `public_html`.
+To publish, upload everything except `content/` and `README.md` to the host's `public_html`.
 
 ## Structure
 
 ```
-src/
-  pages/      one file per page; first line is JSON front matter (title, description, section)
-  partials/   layout, header (stripe menu), footer
-  assets/     css, js, logo SVGs
-  photos/     original photos -> resized to WebP at build time
-content/      original copy brief from Alli
-build.mjs     the build script
+*.html                 one file per page (header and footer are repeated in each page)
+assets/css/style.css   all styles
+assets/js/main.js      piano hero (sound, glissando), menu, reveal, filters, form notice
+assets/img/            logo SVGs + photos/ (WebP crops; "-full" = uncropped, used in the About gallery)
+assets/audio/          piano samples for the home hero
+content/               copy brief, original photos, font/menu option pages (not published)
 ```
 
-Inside pages:
+Notes:
 
-- `{{photo name="alli-portrait" alt="..." sizes="..." loading="eager"}}` inserts a responsive image from `src/photos/`.
+- Header/footer changes must be made in every page.
+- CSS/JS links carry a version (`style.css?v=15`). Bump it in every page after changing them so browsers drop the cached copy.
 - Each stripe sets its colours with `style="--c0:#...;--c1:#..."`. On hover the gradient (twice the stripe's height) slides up and back down, creating the wave effect.
+- The active menu item uses `aria-current="page"` (and `aria-current="true"` on "Who I Help" for its sub-pages).
+
+## Credits
+
+- Piano samples in `assets/audio/`: Salamander Grand Piano by Alexander Holm, licensed CC BY 3.0. The hero sound needs the site served over http (Live Server or the host). It does not work when the file is opened directly.
 
 ## Still pending
 
