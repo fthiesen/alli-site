@@ -134,7 +134,7 @@
 
     // Logo + menu icon slide in only once the bottom of the piano reaches the top of the screen.
     if (header) {
-      const reveal = () => header.classList.toggle('is-in', hero.getBoundingClientRect().bottom <= 140); // a little before the piano fully leaves
+      const reveal = () => header.classList.toggle('is-in', hero.getBoundingClientRect().bottom <= 260); // a little before the piano fully leaves
       reveal();
       window.addEventListener('scroll', reveal, { passive: true });
       window.addEventListener('resize', reveal);

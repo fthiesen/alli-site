@@ -20,7 +20,7 @@ content/               copy brief, original photos, font/menu option pages (not 
 Notes:
 
 - Header/footer changes must be made in every page.
-- CSS/JS links carry a version (`style.css?v=15`). Bump it in every page after changing them so browsers drop the cached copy.
+- CSS/JS links carry a version (`style.css?v=16`). Bump it in every page after changing them so browsers drop the cached copy.
 - Each stripe sets its colours with `style="--c0:#...;--c1:#..."`. On hover the gradient (twice the stripe's height) slides up and back down, creating the wave effect.
 - The active menu item uses `aria-current="page"` (and `aria-current="true"` on "Who I Help" for its sub-pages).
 
