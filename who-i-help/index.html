@@ -12,15 +12,15 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&family=Jost:wght@300;400;500;600&display=swap">
-  <link rel="stylesheet" href="/assets/css/style.css?v=16">
+  <link rel="stylesheet" href="/assets/css/style.css?v=36">
   <script>document.documentElement.classList.add('js')</script>
-  <script src="/assets/js/main.js?v=16" defer></script>
+  <script src="/assets/js/main.js?v=23" defer></script>
 </head>
 <body class="">
   <a class="skip-link" href="#main">Skip to content</a>
   <header class="site-header" data-header>
     <a class="site-header__brand" href="/" aria-label="Alli Pfaff, home">
-      <img class="site-header__name" src="/assets/img/logo-name.svg" alt="" width="176" height="16">
+      <picture><source media="(min-width: 861px)" srcset="/assets/img/logo-mark-rail.svg?v=2" width="36" height="33"><img class="site-header__name" src="/assets/img/logo-name.svg" alt="" width="176" height="16"></picture>
     </a>
     <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav" data-menu-toggle>
       <span class="menu-toggle__bars" aria-hidden="true"><i></i><i></i><i></i></span>
@@ -49,7 +49,12 @@
 <section class="page-intro">
       <div class="container split">
         <div class="reveal">
-          <span class="eyebrow">Who I help</span>
+          <nav class="breadcrumb" aria-label="Breadcrumb">
+            <ol>
+              <li><a href="/">Home</a></li>
+              <li aria-current="page">Who I Help</li>
+            </ol>
+          </nav>
           <h1>Whatever brings you here, you don't have to figure it out alone.</h1>
           <p class="lead">People seek therapy for many different reasons. Some are navigating a new diagnosis. Others are feeling overwhelmed, grieving a loss, struggling with anxiety, or simply looking for a different way forward.</p>
           <p>Whether you're seeking support for yourself or someone you love, therapy can provide a space to better understand what's happening and develop tools that support meaningful change.</p>

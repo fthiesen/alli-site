@@ -12,15 +12,15 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&family=Jost:wght@300;400;500;600&display=swap">
-  <link rel="stylesheet" href="/assets/css/style.css?v=16">
+  <link rel="stylesheet" href="/assets/css/style.css?v=36">
   <script>document.documentElement.classList.add('js')</script>
-  <script src="/assets/js/main.js?v=16" defer></script>
+  <script src="/assets/js/main.js?v=23" defer></script>
 </head>
 <body class="">
   <a class="skip-link" href="#main">Skip to content</a>
   <header class="site-header" data-header>
     <a class="site-header__brand" href="/" aria-label="Alli Pfaff, home">
-      <img class="site-header__name" src="/assets/img/logo-name.svg" alt="" width="176" height="16">
+      <picture><source media="(min-width: 861px)" srcset="/assets/img/logo-mark-rail.svg?v=2" width="36" height="33"><img class="site-header__name" src="/assets/img/logo-name.svg" alt="" width="176" height="16"></picture>
     </a>
     <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav" data-menu-toggle>
       <span class="menu-toggle__bars" aria-hidden="true"><i></i><i></i><i></i></span>
@@ -49,7 +49,13 @@
 <section class="page-intro">
       <div class="container split">
         <div class="reveal">
-          <span class="eyebrow">Parents &amp; Caregivers</span>
+          <nav class="breadcrumb" aria-label="Breadcrumb">
+            <ol>
+              <li><a href="/">Home</a></li>
+              <li><a href="/who-i-help/">Who I Help</a></li>
+              <li aria-current="page">Parents &amp; Caregivers</li>
+            </ol>
+          </nav>
           <h1>Support for the people who support others.</h1>
           <p class="lead">Parenting can be deeply rewarding, but it can also be challenging, exhausting, and overwhelming, especially when your child experiences the world differently or needs additional support.</p>
           <p>Whether you are navigating a new diagnosis, supporting your child's emotional well-being, or simply trying to understand how to best show up for your child, having a space to process your own experiences can be incredibly valuable.</p>
@@ -67,7 +73,7 @@
           <span class="eyebrow">Areas of support</span>
           <h2>What brings you here?</h2>
         </div>
-        <div class="cards">
+        <div class="cards cards--3-2">
           <div class="card"><h3>Supporting a Neurodivergent Child</h3><p>Parenting a neurodivergent child can bring unique joys and challenges.</p><p>Therapy can provide space to process emotions, navigate uncertainty, understand your own responses, and explore ways to support your relationship with your child.</p></div>
           <div class="card"><h3>Adjusting to a Diagnosis or New Understanding</h3><p>A diagnosis can bring many emotions—relief, grief, confusion, hope, worry, or uncertainty.</p><p>You don't have to process those experiences alone.</p></div>
           <div class="card"><h3>Managing Stress &amp; Caregiver Burnout</h3><p>Supporting a child with complex needs can be demanding.</p><p>Therapy can provide a space to acknowledge your own needs, build coping strategies, and explore ways to care for yourself while caring for others.</p></div>

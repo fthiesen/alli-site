@@ -134,10 +134,47 @@
 
     // Logo + menu icon slide in only once the bottom of the piano reaches the top of the screen.
     if (header) {
-      const reveal = () => header.classList.toggle('is-in', hero.getBoundingClientRect().bottom <= 260); // a little before the piano fully leaves
+      // Desktop: the header is fixed, so it can come in early, while the keys are still rising.
+      // Mobile: it sits below the piano, so it waits until the piano has nearly left.
+      const reveal = () => header.classList.toggle('is-in', getComputedStyle(header).position === 'fixed'
+        ? window.scrollY > hero.offsetHeight * 0.2
+        : hero.getBoundingClientRect().bottom <= 260);
       reveal();
       window.addEventListener('scroll', reveal, { passive: true });
       window.addEventListener('resize', reveal);
+    }
+
+    // Scrolling away (desktop): the keys rise off the screen one by one. Each stripe and
+    // black key gets its own random start and speed; --lift goes 0 -> 1 and the CSS turns
+    // it into translateY(-100%). Tied to the scroll, so scrolling back brings them down again.
+    const lifting = [...hero.querySelectorAll('.hero__stripes .stripe, .hero__key')];
+    const desktop = window.matchMedia('(min-width: 861px)');
+    const CATCH_UP = 0.35;
+    if (!reduced && lifting.length) {
+      // Gentle: each key rises at most 60% of its height beyond the scroll and stays in view until
+      // the piano is mostly gone, so the screen never sits empty.
+      const timing = lifting.map(() => ({ start: Math.random() * 0.35, length: 0.45 + Math.random() * 0.2 }));
+      let queued = false;
+      const lift = () => {
+        queued = false;
+        const progress = desktop.matches ? Math.min(Math.max(window.scrollY / hero.offsetHeight, 0), 1) : 0;
+        // The page below catches up while the keys leave: it starts CATCH_UP x the hero height lower
+        // (offset by an equal negative margin on the hero) and closes that gap as the hero scrolls away,
+        // so 'Therapy that meets you where you are' rises over the piano faster than the scroll.
+        const by = desktop.matches ? hero.offsetHeight * CATCH_UP : 0;
+        hero.style.marginBottom = by ? `-${by}px` : '';
+        document.documentElement.style.setProperty('--catch-up', `${((1 - progress) * by).toFixed(1)}px`);
+        lifting.forEach((el, i) => {
+          let t = (progress - timing[i].start) / timing[i].length;
+          t = t <= 0 ? 0 : t >= 1 ? 1 : t * t; // ease-in: slow to leave, then gone
+          t *= 0.6;
+          el.style.setProperty('--lift', t.toFixed(4));
+        });
+      };
+      const queue = () => { if (!queued) { queued = true; requestAnimationFrame(lift); } };
+      lift();
+      window.addEventListener('scroll', queue, { passive: true });
+      window.addEventListener('resize', queue);
     }
 
     // "Scroll" cue: bring the menu bar to the top of the screen.
@@ -146,10 +183,48 @@
       scrollCue.addEventListener('click', (e) => {
         e.preventDefault();
         const top = header.getBoundingClientRect().top + window.scrollY;
-        window.scrollTo({ top: getComputedStyle(header).position === 'fixed' ? hero.offsetHeight : top, behavior: reduced ? 'auto' : 'smooth' });
+        // Fixed header: land where the page content reaches the top. On desktop that is sooner,
+        // because the content catches up with the scroll (see CATCH_UP above).
+        const catchUp = !reduced && lifting.length && desktop.matches ? CATCH_UP : 0;
+        window.scrollTo({ top: getComputedStyle(header).position === 'fixed' ? hero.offsetHeight / (1 + catchUp) : top, behavior: reduced ? 'auto' : 'smooth' });
       });
     }
 
+  }
+
+  /* Header background: transparent at the top (and over the piano), solid once page
+     content scrolls underneath it, so the logo and menu never sit on top of text. */
+  if (header) {
+    const solid = () => {
+      // Home: also as soon as the logo/menu come in, so they never sit on the coloured keys
+      // (the rising keys then disappear under the bar).
+      const under = hero
+        ? header.classList.contains('is-in') || hero.getBoundingClientRect().bottom <= header.offsetHeight
+        : window.scrollY > 0;
+      header.classList.toggle('is-solid', under);
+    };
+    solid();
+    window.addEventListener('scroll', solid, { passive: true });
+    window.addEventListener('resize', solid);
+  }
+
+  /* Mobile: the bar slides away while scrolling down and comes back on scroll up. */
+  if (header) {
+    const mobile = window.matchMedia('(max-width: 860px)');
+    let lastY = window.scrollY;
+    const headroom = () => {
+      const y = window.scrollY;
+      if (!mobile.matches || header.classList.contains('nav-open') || y <= header.offsetHeight) {
+        header.classList.remove('is-hidden');
+        lastY = y;
+        return;
+      }
+      if (Math.abs(y - lastY) < 6) return;   // ignore tiny jitters
+      header.classList.toggle('is-hidden', y > lastY);
+      lastY = y;
+    };
+    window.addEventListener('scroll', headroom, { passive: true });
+    window.addEventListener('resize', headroom);
   }
 
   /* Mobile menu */
