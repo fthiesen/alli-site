@@ -2,6 +2,8 @@
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const canHover = window.matchMedia('(hover: hover)').matches;
   const header = document.querySelector('[data-header]');
+  // Site root, from this script's own URL (assets/js/main.js), so paths work in a subfolder too (GitHub Pages)
+  const root = new URL('../../', (document.currentScript && document.currentScript.src) || location.href);
 
   /* Stripe hover wave: slide the double-height gradient up, then let it fall back. */
   if (canHover && !reduced) {
@@ -51,7 +53,7 @@
         if (!ctx) ctx = new AC();
         if (!loading) {
           loading = Promise.all(Object.entries(SAMPLES).map(([midi, name]) =>
-            fetch(`/assets/audio/${name}.mp3`)
+            fetch(new URL(`assets/audio/${name}.mp3`, root))
               .then((r) => r.arrayBuffer())
               .then((data) => new Promise((ok, fail) => ctx.decodeAudioData(data, ok, fail)))
               .then((buf) => { buffers[midi] = buf; })
@@ -175,6 +177,27 @@
       lift();
       window.addEventListener('scroll', queue, { passive: true });
       window.addEventListener('resize', queue);
+    }
+
+    // Desktop: once the page content has fully reached the top, the rail's menu icon waves once
+    // ("I'm here"), for anyone who didn't see the rail come in. Once per visit; skipped if the
+    // menu was already used.
+    const menuBtn = document.querySelector('[data-menu-toggle]');
+    const mainEl = document.querySelector('main');
+    if (menuBtn && mainEl && !reduced) {
+      let done = false;
+      menuBtn.addEventListener('click', () => { done = true; });
+      const nudge = () => {
+        if (done || !desktop.matches || mainEl.getBoundingClientRect().top > 1) return;
+        done = true;
+        window.removeEventListener('scroll', nudge);
+        setTimeout(() => {
+          if (header.classList.contains('nav-open')) return;
+          menuBtn.classList.add('is-nudging');
+          setTimeout(() => menuBtn.classList.remove('is-nudging'), 2200);
+        }, 250);
+      };
+      window.addEventListener('scroll', nudge, { passive: true });
     }
 
     // "Scroll" cue: bring the menu bar to the top of the screen.

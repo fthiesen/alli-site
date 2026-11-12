@@ -437,6 +437,18 @@ body.nav-open { overflow: hidden; }
     transition: opacity .6s var(--ease), transform .7s var(--ease);
   }
   .menu-toggle__label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  /* "I'm here" (home, once, set by main.js): the lines ripple like a sound wave and a ring spreads out */
+  .menu-toggle.is-nudging .menu-toggle__bars i { transform-origin: left center; animation: menu-wave .9s ease-in-out 2; }
+  .menu-toggle.is-nudging .menu-toggle__bars i:nth-child(2) { animation-delay: .09s; }
+  .menu-toggle.is-nudging .menu-toggle__bars i:nth-child(3) { animation-delay: .18s; }
+  .menu-toggle::after {
+    content: ''; position: absolute; left: 50%; top: 50%; width: 40px; height: 40px; margin: -20px 0 0 -20px;
+    border: 1px solid rgba(255, 255, 255, .7); border-radius: 50%;
+    opacity: 0; pointer-events: none;
+  }
+  .menu-toggle.is-nudging::after { animation: menu-ring 1.4s var(--ease) .1s; }
+  @keyframes menu-wave { 0%, 100% { transform: scaleX(1); } 30% { transform: scaleX(.45); } 65% { transform: scaleX(1.25); } }
+  @keyframes menu-ring { 0% { transform: scale(.5); opacity: .9; } 100% { transform: scale(1.6); opacity: 0; } }
   .menu-toggle__bars { color: rgba(255, 255, 255, .85); }
   .site-header:not(.nav-open) .menu-toggle:hover .menu-toggle__bars { color: #fff; }   /* hover: brighter, middle line grows */
   .nav-open .menu-toggle__bars { color: #fff; }   /* the X on the red rail */
