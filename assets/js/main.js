@@ -179,22 +179,24 @@
       window.addEventListener('resize', queue);
     }
 
-    // Desktop: once the page content has fully reached the top, the rail's menu icon waves once
-    // ("I'm here"), for anyone who didn't see the rail come in. Once per visit; skipped if the
-    // menu was already used.
-    const menuBtn = document.querySelector('[data-menu-toggle]');
+    // Desktop: each time the page content reaches the top after scrolling down from the piano,
+    // red waves pulse out from the rail ("I'm here"). It re-arms once the visitor scrolls back up into
+    // the piano, so it never repeats while reading further down.
     const mainEl = document.querySelector('main');
-    if (menuBtn && mainEl && !reduced) {
-      let done = false;
-      menuBtn.addEventListener('click', () => { done = true; });
+    if (mainEl && !reduced) {
+      let armed = true;
+      let timer;
       const nudge = () => {
-        if (done || !desktop.matches || mainEl.getBoundingClientRect().top > 1) return;
-        done = true;
-        window.removeEventListener('scroll', nudge);
-        setTimeout(() => {
-          if (header.classList.contains('nav-open')) return;
-          menuBtn.classList.add('is-nudging');
-          setTimeout(() => menuBtn.classList.remove('is-nudging'), 2200);
+        if (!desktop.matches) return;
+        const top = mainEl.getBoundingClientRect().top;
+        if (top > window.innerHeight * 0.3) { armed = true; return; }   // back up in the piano
+        if (!armed || top > 1 || header.classList.contains('nav-open')) return;
+        armed = false;
+        clearTimeout(timer);
+        header.classList.remove('is-nudging');
+        timer = setTimeout(() => {
+          header.classList.add('is-nudging');
+          timer = setTimeout(() => header.classList.remove('is-nudging'), 2200);
         }, 250);
       };
       window.addEventListener('scroll', nudge, { passive: true });
