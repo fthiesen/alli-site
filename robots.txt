@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://allipfaff.ca/sitemap.xml
