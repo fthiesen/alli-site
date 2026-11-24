@@ -296,15 +296,44 @@
     });
   }
 
-  /* Contact form — no backend chosen yet (see README). */
+  /* Contact form — posts to the Cloudflare Function at /api/contact (functions/api/contact.js). */
   const form = document.querySelector('[data-contact-form]');
   if (form) {
-    form.addEventListener('submit', (e) => {
-      if (form.getAttribute('action')) return; // once an endpoint is set, submit normally
-      e.preventDefault();
-      const status = form.querySelector('.form__status');
+    const status = form.querySelector('.form__status');
+    const button = form.querySelector('button[type="submit"]');
+    const show = (msg, isError) => {
       status.hidden = false;
-      status.textContent = 'Thank you! This form is not connected yet — it will be activated before launch.';
+      status.textContent = msg;
+      status.classList.toggle('is-error', !!isError);
+    };
+    // Result of a submit made without JavaScript (the function redirects back here)
+    const params = new URLSearchParams(location.search);
+    if (params.has('sent')) show('Thank you! Your message has been sent. I will be in touch within 2 business days.');
+    if (params.has('error')) show('Your message could not be sent. Please try again later.', true);
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+      }
+      button.disabled = true;
+      show('Sending…');
+      try {
+        const res = await fetch(form.action, {
+          method: 'POST',
+          body: new FormData(form),
+          headers: { Accept: 'application/json' },
+        });
+        const data = await res.json().catch(() => ({}));
+        if (!res.ok || !data.ok) throw new Error(data.message);
+        form.reset();
+        show(data.message || 'Thank you! Your message has been sent.');
+      } catch (err) {
+        show((err && err.message) || 'Your message could not be sent. Please try again later.', true);
+      } finally {
+        button.disabled = false;
+      }
     });
   }
 })();

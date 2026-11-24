@@ -718,6 +718,7 @@ main:has(> .cta:last-child) + .site-footer > .stripe-band { display: none; }
 .form__note { font-size: 1.04rem; color: var(--ink-soft); }
 .form__status { margin-top: var(--space-4); padding: var(--space-3) var(--space-4); background: var(--cream-2); border-left: 4px solid var(--plum); font-size: 1.07rem; }
 .form__status[hidden] { display: none; }
+.form__status.is-error { border-left-color: var(--terracotta); }
 .hp { position: absolute; left: -9999px; }
 
 /* Footer */
