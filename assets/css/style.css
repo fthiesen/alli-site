@@ -548,6 +548,7 @@ body.nav-open { overflow: hidden; }
 .tile h3 { color: #fff; font-size: clamp(1.7rem, 2.4vw, 2.2rem); margin: 0 0 var(--space-2); }
 .tile p { font-size: 1.125rem; line-height: 1.42; margin: 0 0 var(--space-5); color: rgba(255,255,255,.92); }
 .tile .link-arrow { color: #fff; }
+.pathways .tile h3 { margin-bottom: auto; padding-bottom: var(--space-4); }
 
 /* Cards */
 .cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: var(--space-5); }
